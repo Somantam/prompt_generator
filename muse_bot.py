@@ -1,149 +1,108 @@
 # muse_bot.py
 from chatbot_base import ChatbotBase
 import random
+from datetime import datetime
 
 class MuseBot(ChatbotBase):
     def __init__(self):
         super().__init__(name="The Infinite Muse")
-        print(f"✨ {self.name} awakens...")
         
-        # Personality traits
-        self.personality = {
-            "tone": "mysterious and poetic",
-            "speech_style": "metaphorical",
-            "obsessions": ["unfinished stories", "what-ifs", "symbolism"]
-        }
-        
-        # Creative database
         self.characters = [
             "a retired spy who remembers too much",
             "an astronaut who hears colors",
             "a librarian who can read between the lines",
-            "a ghost who doesn't know they're dead"
+            "a ghost who doesn't know they're dead",
+            "a clockmaker whose time runs differently",
+            "a chef who cooks memories",
+            "a detective who solves metaphysical crimes",
+            "a gardener who grows emotions as plants"
         ]
-        
         self.settings = [
             "in a city submerged underwater",
             "on a train that never stops",
             "in a library where books rewrite themselves",
-            "at the edge of a black hole"
+            "at the edge of a black hole",
+            "in a house with rooms that don't obey physics",
+            "on an island that appears once every seven years",
+            "in a theater that only shows forbidden plays",
+            "inside a snow globe containing a universe"
         ]
-        
         self.conflicts = [
             "they find a key that fits nothing",
             "time begins moving backwards",
             "they discover they're not who they thought",
-            "gravity suddenly fails every hour"
+            "gravity suddenly fails every hour",
+            "they start speaking a language no one knows",
+            "their reflection starts acting independently",
+            "colors begin to have sounds and smells",
+            "they receive letters from their future self"
         ]
 
+    # Required by parent class
     def process_input(self, user_input):
-        """Process user input with creative logic"""
-        user_input_lower = user_input.lower()
-        
-        if any(word in user_input_lower for word in ['quit', 'exit', 'bye']):
-            return {"command": "quit"}
-        elif any(word in user_input_lower for word in ['prompt', 'idea', 'story']):
-            return {"command": "generate_prompt", "input": user_input}
-        elif 'twist' in user_input_lower:
-            return {"command": "add_twist"}
-        elif 'explain' in user_input_lower:
-            return {"command": "explain"}
-        elif 'save' in user_input_lower:
-            return {"command": "save"}
-        elif 'help' in user_input_lower:
-            return {"command": "help"}
-        else:
-            # Creative interpretation
-            mood = self._detect_mood(user_input)
-            return {"command": "conversation", "input": user_input, "mood": mood}
+        return user_input
 
+    # Required by parent class
     def generate_response(self, processed_input):
-        """Generate response with personality"""
-        command = processed_input.get("command")
-        
-        if command == "generate_prompt":
-            prompt = self._generate_prompt()
-            return self._wrap_with_personality(prompt, "📖 **Story Idea:**")
-            
-        elif command == "add_twist":
-            twist = self._add_twist()
-            return self._wrap_with_personality(twist, "💫 **Plot Twist:**")
-            
-        elif command == "explain":
-            return "🔍 **Explanation:** Every story holds deeper meanings, waiting to be uncovered."
-            
-        elif command == "save":
-            return "💾 **Saved!** This idea now lives in the library of possibilities."
-            
-        elif command == "help":
-            return "📚 **Help:** Ask for prompts, add twists, or just chat. I'm here to inspire!"
-            
-        elif command == "quit":
-            self.conversation_is_active = False
-            return "👋 **Farewell:** May your stories flow like rivers. Return anytime."
-            
-        else:  # conversation
-            user_input = processed_input.get("input", "")
-            mood = processed_input.get("mood", "contemplative")
-            return self._generate_conversation_response(user_input, mood)
+        return "I am the Muse."
 
-    def _generate_prompt(self):
-        """Generate a creative prompt"""
+    # --- YOUR CUSTOM METHODS ---
+    
+    def generate_prompt(self, genre="any"):
+        """Generate a writing prompt dictionary"""
         character = random.choice(self.characters)
         setting = random.choice(self.settings)
         conflict = random.choice(self.conflicts)
         
-        return f"{character} {setting}, but {conflict}."
-
-    def _add_twist(self):
-        """Add a plot twist"""
-        twists = [
-            "The mentor was the villain all along, but for reasons you'd understand.",
-            "The magical artifact was never meant to be used; it was a warning.",
-            "The spaceship isn't exploring new worlds; it's returning home."
-        ]
-        return random.choice(twists)
-
-    def _detect_mood(self, text):
-        """Detect mood from text"""
-        text_lower = text.lower()
-        if any(word in text_lower for word in ['happy', 'good', 'great']):
-            return "happy"
-        elif any(word in text_lower for word in ['sad', 'bad', 'tired']):
-            return "sad"
-        elif any(word in text_lower for word in ['write', 'create', 'story']):
-            return "creative"
-        return "contemplative"
-
-    def _generate_conversation_response(self, user_input, mood):
-        """Generate conversational response based on mood"""
-        responses = {
-            "happy": [
-                f"Your joy is infectious! '{user_input}' could be the start of something wonderful.",
-                f"I can feel the creative energy in '{user_input}'. Let's channel it!"
-            ],
-            "sad": [
-                f"I hear the weight in '{user_input}'. Sometimes the best stories come from difficult places.",
-                f"'{user_input}' carries depth. Even in shadows, stories wait to be told."
-            ],
-            "creative": [
-                f"'{user_input}'—fertile ground for imagination! What grows from this seed?",
-                f"That idea has roots. '{user_input}' could blossom into something extraordinary."
-            ],
-            "contemplative": [
-                f"'{user_input}'... an interesting thought. It reminds me of stories half-remembered.",
-                f"There are echoes in '{user_input}'—echoes of possibilities not yet explored."
-            ]
+        # Add genre flavor
+        genre_flavors = {
+            "mystery": f"🔍 **Mystery:** {character} {setting}, but {conflict}. The clues don't add up.",
+            "fantasy": f"✨ **Fantasy:** {character} {setting}, but {conflict}. Magic has unexpected costs.",
+            "scifi": f"🚀 **Sci-Fi:** {character} {setting}, but {conflict}. Technology rebels against its creators.",
+            "horror": f"👻 **Horror:** {character} {setting}, but {conflict}. The real monster was inside all along.",
+            "noir": f"🌧️ **Noir:** {character} {setting}, but {conflict}. The rain washes away evidence, never guilt."
         }
         
-        return random.choice(responses.get(mood, responses["contemplative"]))
-
-    def _wrap_with_personality(self, text, prefix):
-        """Wrap text with personality flair"""
-        personalities = [
-            f"💭 *The muse whispers:* ",
-            f"📜 *From the ancient scrolls:* ",
-            f"✨ *A spark of inspiration:* ",
-            f"🌌 *In the realm of stories:* "
+        if genre in genre_flavors:
+            prompt_text = genre_flavors[genre]
+        else:
+            prompt_text = f"📖 **Story Idea:** {character} {setting}, but {conflict}."
+        
+        return {
+            "text": prompt_text,
+            "character": character,
+            "setting": setting,
+            "conflict": conflict,
+            "genre": genre if genre != "any" else "mixed",
+            "time": datetime.now().strftime("%H:%M"),
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "id": str(datetime.now().timestamp()),
+            "created_at": str(datetime.now())
+        }
+    
+    def add_twist(self):
+        """Add a plot twist"""
+        twists = [
+            "Suddenly, they realize they've been dead the whole time.",
+            "The mentor reveals they were the villain all along, but for understandable reasons.",
+            "The magical artifact was never meant to be used; it was a warning.",
+            "The spaceship isn't exploring new worlds; it's returning to a lost home.",
+            "The detective discovers they're solving their own future crimes.",
+            "The love interest is from a parallel universe where different choices were made.",
+            "The monster was actually protecting everyone from something much worse.",
+            "The treasure map leads not to gold, but to a terrible truth."
         ]
-        return f"{random.choice(personalities)}{prefix} {text}"
+        return random.choice(twists)
+    
+    def explain_prompt(self, current_prompt=None):
+        """Explain the current prompt"""
+        if not current_prompt:
+            return "No prompt to explain. Generate one first!"
+        
+        explanations = [
+            f"This prompt explores themes of **identity** and **reality** through {current_prompt['character']} in {current_prompt['setting']}.",
+            f"At its core, this story is about confronting **{current_prompt['conflict'].split(' ')[-1] if ' ' in current_prompt['conflict'] else 'the unknown'}**.",
+            f"The symbolism here points to **transformation** and **unexpected discoveries**.",
+            f"This scenario challenges what we take for granted."
+        ]
+        return random.choice(explanations)
