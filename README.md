@@ -33,17 +33,15 @@
 cd prompt_generator
 pip install -r requirements.txt
 streamlit run app.py
+```
+### Basic Usage
+1. Open http://localhost:8501 in your browser.
+2. Select a genre from the sidebar.
+3. Click "Generate" or type "give me a prompt".
+4. Use buttons to save, add twists, or get explanations.
 
-Basic Usage
-Open http://localhost:8501
-
-Select a genre from sidebar
-
-Click "Generate" or type "give me a prompt"
-
-Use buttons to save, add twists, or get explanations
-
-📁 Project Structure
+## 📁 Project Structure
+```text
 prompt_generator/
 ├── app.py              # Main Streamlit app
 ├── muse_bot.py         # Chatbot class
@@ -53,38 +51,26 @@ prompt_generator/
 │   └── data_manager.py # File handling
 └── data/
     └── favorites.json  # Saved prompts
+```
+## 🎯 Key Commands
+- **"prompt"** - Generate story idea
+- **"twist"** - Add plot twist
+- **"explain"** - Get symbolic analysis
+- **"save"** - Save to favorites
+- **"clear"** - Reset conversation
+- **"help"** - Show all commands
 
-🎯 Key Commands
-"prompt" - Generate story idea
+## 🔧 Requirements
+- Python 3.8+
+- Streamlit 1.28+
+- *No external APIs needed*
 
-"twist" - Add plot twist
+## 📝 License
+MIT License - Free for personal and educational use.
 
-"explain" - Get symbolic analysis
-
-"save" - Save to favorites
-
-"clear" - Reset conversation
-
-"help" - Show all commands
-
-🔧 Requirements
-Python 3.8+
-
-Streamlit 1.28+
-
-No external APIs needed
-
-📝 License
-MIT License - Free for personal and educational use
-
-🤝 Contributing
-Fork the repository
-
-Create a feature branch
-
-Commit your changes
-
-Push to the branch
-
-Open a Pull Request
-
+## 🤝 Contributing
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
